@@ -7,14 +7,15 @@ inherit git-r3 qmake-utils
 
 DESCRIPTION="Linux multitouch gesture recognizer"
 HOMEPAGE="https://github.com/JoseExposito/touchegg"
-SRC_URI=""
+SRC_URI="
+gpdconfig? ( https://raw.githubusercontent.com/nexus511/gpd-ubuntu-packages/master/packages/gpdpocket-touchegg-config/files/touchegg.conf -> gpd-touchegg.conf )"
 
 EGIT_REPO_URI="git://github.com/JoseExposito/touchegg.git https://github.com/JoseExposito/touchegg.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE=""
+KEYWORDS="~amd64"
+IUSE="gpdconfig"
 
 RDEPEND="
     dev-qt/qtcore:4
@@ -26,6 +27,10 @@ DEPEND="${RDEPEND}"
 
 src_unpack() {
 	git-r3_src_unpack
+	use gpdconfig && (
+		mv -v "${WORKDIR}/${P}/installation/touchegg.conf" "${WORKDIR}/${P}/installation/touchegg.conf.orig"
+		cp -v "${DISTDIR}/gpd-touchegg.conf" "${WORKDIR}/${P}/installation/touchegg.conf"
+	)
 }
 
 src_configure() {
