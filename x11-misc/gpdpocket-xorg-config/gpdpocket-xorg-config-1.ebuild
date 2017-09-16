@@ -15,7 +15,7 @@ IUSE="+touchegg"
 DEPEND="
 x11-base/xorg-server
 x11-base/xorg-drivers[input_devices_libinput,video_cards_intel]
-touchegg? ( x11-misc/touchegg )
+touchegg? ( x11-misc/touchegg[gpdconfig] )
 "
 RDEPEND="${DEPEND}"
 
